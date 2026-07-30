@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/7ba2d30ef4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='hotel.css') }}">
+    {% if show_modal %}
+    <script>
+        $(document).ready(function () {
+            $('#exampleModal').modal('show');
+        });
+    </script>
+    {% endif %}
+</head>
+
+<body>
+    <div id="sectionnav" class="w-100">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top navbar-animation shadow ml-2 mr-2">
+            <div class="d-flex flex-column mr-auto text-left">
+
+                <a class="navbar-brand">Hotel</a>
+            </div>
+            <div class="tex-center m-auto">
+                <div class="d-block d-md-none">
+                    <div class="d-flex flex-row align-items-center">
+                         <div class="bg-white search-menu d-flex flex-row justify-content-between text-center m-auto">
+                        <img src="{{ url_for('static', filename='Hotel-Img.jpg')}}" class="search-img"
+                            href="#serachbar" />
+                        <input type="search" class="search-box common-search" id="searchbar-mobile"
+                            placeholder="Search...">
+                        <img src="{{ url_for('static', filename='search-img.jpg')}}" class="search-img search-btn"
+                            href="#serachbar" value="search" />
+                    </div>
+                    </div>
+                </div>
+                <div class="d-none d-md-block d-xl-none">
+                    <div class="d-flex flex-row justify-content-center m-auto align-items-center">
+                        <div
+                        class="bg-white search-menu-md d-flex flex-row justify-content-between text-center">
+                        <img src="{{ url_for('static', filename='Hotel-Img.jpg')}}" class="search-img-md"
+                            href="#serachbar" />
+                        <input type="search" class="search-box-md common-search" id="searchbar-tablet"
+                            placeholder="Search...">
+                        <img src="{{ url_for('static', filename='search-img.jpg')}}" class="search-img-md search-btn"
+                            href="#serachbar" />
+                    </div>
+                    </div>
+                    
+                </div>
+
+                <div class="d-none d-md-none d-xl-block">
+                    <div class="d-flex flex-row align-items-center m-auto">
+                        <div class="bg-white search-menu-xl  d-flex flex-row justify-content-between text-center">
+                            <img src="{{ url_for('static', filename='Hotel-Img.jpg')}}" class="search-img-xl text-left"
+                                href="#serachbar" />
+                            <input type="search" class="search-box-xl text-center common-search" id="searchbar-desktop"
+                                placeholder="Search...">
+                            <img src="{{ url_for('static', filename='search-img.jpg')}}"
+                                class="search-img-xl text-right search-btn" href="#serachbar" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse text-left" id="navbarNavAltMarkup">
+
+                    <div class="navbar-nav ml-auto">
+                        <a class="nav-link" id="navitem1" href="{{ url_for('homepage') }}">Home</a>
+                        <a class="nav-link active" id="navitem2" href="{{ url_for('menu') }}">Food <span
+                                class="sr-only">(current)</span></a>
+                        <a class="nav-link" id="navitem3" href="#sectionmenu">Snacks</a>
+                        <a class="nav-link" id="navitem4" href="#">Cool Drinks</a>
+                        <a class="nav-link" id="navitem5" data-toggle="modal" data-target="#logoutModal" href="#">Log out</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <nav class="navbar fixed-bottom">
+  
+    <div class="ml-auto">
+      <div class="voice-btn-nav mr-5 mb-5 bg-pri" style="background-color: #128c7e;" data-target="searchbar-desktop" role="button" tabindex="0" aria-label="Voice search">
+            <a><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-mic nav-mic-btn" viewBox="0 0 16 16">
+  <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5"/>
+  <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3"/>
+</svg></a>
+      </div>
+  </div>
+</nav>
+    </div>
+        <!-- Modal -->
+                <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h5 class="modal-title modal-heading" id="logoutModalLabel" style="color: red;">
+                                    Alert!
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                <h1 style="font-size: 20px;">Do Tou Want't To Log Out</h1>
+
+                                <p><a class="btn btn-primary mt-2" href="{{ url_for('login') }}"> Logout</a></p>
+                            </div>
+                            </div>
+
+                        </div>
+                    </div>
+    <div id="sectionmenu" class="w-100">
+        <div class="pt-5 pb-5 mt-3">
+            <div class="container">
+                <div class="pt-2">
+                    <a href="{{ url_for('homepage') }}"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                    </svg></a>
+                </div>
+                <div class="col-12 pt-3">
+                    <h1 class="menu-page-heading">Our <span class="menu-page-span-item">Regural</span> Menu</h1>
+                    <p class="menu-page-paragraph">All your favorite food avilable here</p>
+                </div>
+                <div class="row" id="foodRow">
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+
+                            <div class="text-center mt-3 shadow menu-card-container" data-toggle="modal"
+                                data-target="#foodItemModal">
+                                <img src="{{ url_for('static', filename='idly-vada.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2">Idly-<span
+                                        class="menu-card-span-item">Vada</span>
+                                </h1>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container" data-toggle="modal"
+                                data-target="#foodItemModal">
+                                <img src="{{ url_for('static', filename='Masala-Dosa.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2">Masala-<span
+                                        class="menu-card-span-item">Dosa</span>
+                                </h1>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container" data-toggle="modal"
+                                data-target="#foodItemModal">
+                                <img src="{{ url_for('static', filename='tomato-bath.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2">Tomoto-<span
+                                        class="menu-card-span-item">Bath</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='puliyogare.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2">Puliy<span
+                                        class="menu-card-span-item">ogare</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='Chitranna.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2">Chitranna<span
+                                        class="menu-card-span-item"></span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='chapati.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2"><span class="menu-card-span-item">Chapti</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='parota.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2"><span class="menu-card-span-item">Parota</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='Bisi Bele Bath.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2">Bisi <span class="menu-card-span-item">Bele
+                                    </span>Bath
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='Uppit.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2">Uppit<span class="menu-card-span-item"></span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='Pongal.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2"><span class="menu-card-span-item">Pongal</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='Fried Rice.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2"><span class="menu-card-span-item">Fried -
+                                    </span>Rice
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='Ghee Rice.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2">Ghee - <span
+                                        class="menu-card-span-item">Rice</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='poori.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2">Poori<span class="menu-card-span-item"></span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='vegetable-palav.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2">Veg <span
+                                        class="menu-card-span-item">Palav</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='Set-Dosa.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2"> <span class="menu-card-span-item">Set</span>
+                                    Dosa
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='rava-idli.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2">Rava <span
+                                        class="menu-card-span-item">Idly</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='Neer-dosa.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2"><span class="menu-card-span-item">Neer</span>
+                                    Dosa
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='chow-chow-bath.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2">Chow <span
+                                        class="menu-card-span-item">Chow</span>
+                                    Bath
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='Veg-biriyani.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2"> <span
+                                        class="menu-card-span-item">Veg </span>
+                                    Biriyani
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='roti-32.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2">Roti <span
+                                        class="menu-card-span-item"></span>
+                                    
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='palak-palav.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2"><span
+                                        class="menu-card-span-item">Palak </span>
+                                    pulao
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='panner-rice.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2">Panner<span
+                                        class="menu-card-span-item"> pulao</span>
+                                    
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2">
+                        <div class="menu-card-items">
+                            <div class="text-center mt-3 shadow menu-card-container">
+                                <img src="{{ url_for('static', filename='jeera-rice.jpg') }}"
+                                    class="w-100 menu-card-img-size" />
+                                <h1 class="menu-card-heading pt-2 pb-2"><span
+                                        class="menu-card-span-item">Jeera </span>
+                                    Rice
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
+
+                        <a href="{{ url_for('homepage') }}" class="btn btn-info">Back</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="foodItemModal" tabindex="-1" aria-labelledby="foodItemModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="foodItemModalLabel">Food Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img id="foodModalImage" src="" class="w-100 mb-3" style="height: 300px; object-fit: cover; border-radius: 12px;">
+                        <h3 id="foodModalTitle" class="mb-2"></h3>
+                        <p id="foodModalPrice" class="mb-3 font-weight-bold text-danger"></p>
+                        <p id="foodModalDescription" class="text-muted"></p>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button class="btn btn-primary">Add to Cart</button>
+                        <button class="btn btn-outline-primary">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var foodItemDetails = {
+                "idly vada": { title: "Idly Vada", price: "Perfect Price: ₹60", description: "Soft idly and crispy vada served with chutney and sambar." },
+                "masala dosa": { title: "Masala Dosa", price: "Perfect Price: ₹80", description: "Crispy dosa filled with spiced potato masala and served hot." },
+                "tomoto bath": { title: "Tomoto Bath", price: "Perfect Price: ₹60", description: "A tasty tomato rice dish with rich South Indian flavors." },
+                "puliogare": { title: "Puliyogare", price: "Perfect Price: ₹70", description: "Tangy tamarind rice with peanuts and spices." },
+                "chitranna": { title: "Chitranna", price: "Perfect Price: ₹70", description: "Fragrant lemon rice with mild spices." },
+                "chapti": { title: "Chapti", price: "Perfect Price: ₹40", description: "Soft whole wheat flatbread served fresh and hot." },
+                "parota": { title: "Parota", price: "Perfect Price: ₹45", description: "Layered and flaky parotta with rich texture." },
+                "bisi bele bath": { title: "Bisi Bele Bath", price: "Perfect Price: ₹90", description: "Hearty rice dish with lentils, vegetables, and aromatic spices." },
+                "uppit": { title: "Uppit", price: "Perfect Price: ₹50", description: "Simple and healthy semolina upma cooked with vegetables." },
+                "pongal": { title: "Pongal", price: "Perfect Price: ₹70", description: "Comforting rice dish made with lentils and spices." },
+                "fried rice": { title: "Fried Rice", price: "Perfect Price: ₹85", description: "Classic fried rice with vegetables and bold seasoning." },
+                "ghee rice": { title: "Ghee Rice", price: "Perfect Price: ₹80", description: "Fragrant rice tossed with ghee and spices." },
+                "poori": { title: "Poori", price: "Perfect Price: ₹60", description: "Deep-fried puffed bread served hot and soft." },
+                "veg palav": { title: "Veg Palav", price: "Perfect Price: ₹90", description: "Flavorful vegetable pulao cooked with spices." },
+                "set dosa": { title: "Set Dosa", price: "Perfect Price: ₹75", description: "Soft set dosa served with chutney and sambar." },
+                "palak pulao": { title: "Palak Pulao", price: "Perfect Price: ₹95", description: "Mild and flavorful spinach rice dish." },
+                "panner pulao": { title: "Panner Pulao", price: "Perfect Price: ₹95", description: "Delicious paneer pulao with rich spices." },
+                "jeera rice": { title: "Jeera Rice", price: "Perfect Price: ₹70", description: "Fragrant cumin rice served with warm spices." }
+            };
+
+            function normalizeTitle(text) {
+                return (text || '')
+                    .replace(/-/g, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim()
+                    .toLowerCase();
+            }
+
+            document.querySelectorAll('.menu-card-container').forEach(function (card) {
+                card.style.cursor = 'pointer';
+                card.setAttribute('data-toggle', 'modal');
+                card.setAttribute('data-target', '#foodItemModal');
+
+                card.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    var heading = card.querySelector('h1');
+                    var titleText = heading ? heading.textContent : 'Menu Item';
+                    var key = normalizeTitle(titleText);
+
+                    var item = foodItemDetails[key] || {
+                        title: titleText || 'Menu Item',
+                        price: 'Perfect Price: ₹120',
+                        description: 'Freshly prepared and served hot.'
+                    };
+
+                    var img = card.querySelector('img');
+                    document.getElementById('foodModalImage').src = img ? img.src : '';
+                    document.getElementById('foodModalImage').alt = item.title;
+                    document.getElementById('foodModalTitle').textContent = item.title;
+                    document.getElementById('foodModalPrice').textContent = item.price;
+                    document.getElementById('foodModalDescription').textContent = item.description;
+
+                    $('#foodItemModal').modal('show');
+                });
+            });
+        </script>
+        <script src="{{ url_for('static', filename='hotel.js') }}"></script>
+</body>
+</html>

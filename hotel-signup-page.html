@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/7ba2d30ef4.js" crossorigin="anonymous"></script>
+    {% if password_error %}
+    <script>
+        $(document).ready(function () {
+            $('#passwordModal').modal('show');
+        });
+    </script>
+    {% endif %}
+
+    {% if username_exists %}
+    <script>
+        $(document).ready(function () {
+            $('#usernameModal').modal('show');
+        });
+    </script>
+    {% endif %}
+    <script>
+        function togglePassword(inputId, eyeOpenId, eyeCloseId) {
+            const input = document.getElementById(inputId);
+            const eyeOpen = document.getElementById(eyeOpenId);
+            const eyeClose = document.getElementById(eyeCloseId);
+
+            if (input.type === "password") {
+                input.type = "text";
+                eyeOpen.style.display = "none";
+                eyeClose.style.display = "inline";
+            } else {
+                input.type = "password";
+                eyeOpen.style.display = "inline";
+                eyeClose.style.display = "none";
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='hotel.css') }}">
+</head>
+
+<body>
+    <div id="sectionlogin" class="bg d-flex flex-column justify-content-center">
+        <div class="tex-center">
+            <form action="/signup" method="POST">
+                <div class="login-card p-5">
+                    <div class="text-center">
+                        <h2 class="login-heading-card pt-2 pb-2" style="font-size: 25px;">Create Account</h2>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <input type="text" placeholder="Enter Username" class="login-inputs" name="username" required>
+                    </div>
+                    <div class="pass-box">
+                        <input type="password" id="password" placeholder="Enter-passowrd" class="login-inputs-pass"
+                            name="password" required><span class="eye-icon"
+                            onclick="togglePassword('password','eyeOpen1','eyeClose1')">
+                            <svg id="eyeOpen1" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+                                <path
+                                    d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
+                            </svg>
+                            <svg id="eyeClose1" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16" style="display: none;">
+                                <path
+                                    d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z" />
+                                <path
+                                    d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829" />
+                                <path
+                                    d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z" />
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="pass-box">
+                        <input type="password" id="confirm_password" placeholder="Confirm passowrd"
+                            class="login-inputs-pass" name="confirm_password" required><span class="eye-icon"
+                            onclick="togglePassword('confirm_password','eyeOpen2','eyeClose2')">
+                            <svg id="eyeOpen2" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+                                <path
+                                    d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
+                            </svg>
+                            <svg id="eyeClose2" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16" style="display: none;">
+                                <path
+                                    d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z" />
+                                <path
+                                    d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829" />
+                                <path
+                                    d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z" />
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="text-center">
+                        <button class="home-button m-2" id="login-button" type="submit">Submit</button>
+                    </div>
+                    <div>
+                        <hr>
+                    </div>
+                    <div class="d-flex flex-column text-center">
+                        <div>
+                            <p class="p-0 m-0">Already have a account</p>
+                            <p class="p-0 m-0"><a href="{{ url_for('login') }}">Login?</a></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade vh-100" id="passwordModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title modal-heading" id="passwordModalLabel" style="color: red;">
+                                    Failed !
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h1 style="font-size: 25px;">Your Password is not matching</h1>
+                                <p>Please Confirm Your Password</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Modal -->
+                <div class="modal fade vh-100" id="usernameModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title modal-heading" id="exampleModalLabel" style="color: red;">
+                                    Failed !
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h1 style="font-size: 25px;">Username Already Exists</h1>
+                                <p>Please Chose another username.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
+
+
+</body>
+
+</html>
